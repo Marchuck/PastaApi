@@ -20,7 +20,7 @@ public class JsoupUtils {
             public void call(Subscriber<? super Document> subscriber) {
                 Document document = null;
                 try {
-                    System.setProperty("javax.net.ssl.trustStore", "vichan.net.jks");
+                    if (url.contains("vichan")) System.setProperty("javax.net.ssl.trustStore", "vichan.net.jks");
                     document = Jsoup.connect(url).get();
                 } catch (Exception ignored) {
                     subscriber.onError(ignored);

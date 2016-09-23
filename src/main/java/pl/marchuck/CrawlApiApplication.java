@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CrawlApiApplication {
 
 	public static void main(String[] args) {
+
+		// Tell Boot to look for registration-server.yml
+		System.setProperty("spring.config.name", "registration-server");
 		SpringApplication.run(CrawlApiApplication.class, args);
 	}
 }
