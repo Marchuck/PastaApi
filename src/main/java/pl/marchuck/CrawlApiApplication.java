@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
 import pl.marchuck.customer.CustomerProtos;
 import pl.marchuck.customer.CustomerRepository;
+import pl.marchuck.model.UserProtos;
+import pl.marchuck.proto_api.UserRepository;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,6 +47,21 @@ public class CrawlApiApplication {
                 .build();
     }
 
+    private UserProtos.User user(int id, String f, String l, Collection<String> emails) {
+        Collection<UserProtos.User.Monster> monsters =
+                emails.stream().map(e -> UserProtos.User.Monster.newBuilder()
+                        .setName(e)
+                        .setId(e.length()).build())
+                        .collect(Collectors.toList());
+
+        return UserProtos.User.newBuilder()
+                .setFirstName(f)
+                .setLastName(l)
+                .setId(id)
+                .addAllMonsters(monsters)
+                .build();
+    }
+
     @Bean
     CustomerRepository customerRepository() {
         Map<Integer, CustomerProtos.Customer> customers = new ConcurrentHashMap<>();
@@ -58,6 +75,20 @@ public class CrawlApiApplication {
 
         // our lambda just gets forwarded to Map#get(Integer)
         return customers::get;
+    }
+
+    @Bean
+    UserRepository userRepository() {
+        Map<Integer, UserProtos.User> users = new ConcurrentHashMap<Integer, UserProtos.User>();
+        // populate with some dummy data
+        Arrays.asList(
+                user(1, "Chris", "Richardson", Arrays.asList("crichardson@email.com")),
+                user(2, "Josh", "Long", Arrays.asList("jlong@email.com")),
+                user(3, "Matt", "Stine", Arrays.asList("mstine@email.com")),
+                user(4, "Russ", "Miles", Arrays.asList("rmiles@email.com"))
+        ).forEach(c -> users.put(c.getId(), c));
+
+        return users::get;
     }
 
 }

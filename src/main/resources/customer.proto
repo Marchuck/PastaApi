@@ -1,4 +1,4 @@
-package demo;
+package pl.marchuck;
 
 option java_package = "";
 option java_outer_classname = "pl.marchuck.customer.CustomerProtos";

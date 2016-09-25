@@ -3,3 +3,6 @@
 *.crt
 
 target/
+.idea/workspace.xml
+lib/
+src/webapp/
