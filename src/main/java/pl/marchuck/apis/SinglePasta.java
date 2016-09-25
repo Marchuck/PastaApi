@@ -1,4 +1,4 @@
-package pl.marchuck;
+package pl.marchuck.apis;
 
 /**
  * FirstSprintInitializer

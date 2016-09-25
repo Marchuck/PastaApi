@@ -1,4 +1,4 @@
-package pl.marchuck;
+package pl.marchuck.apis;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +37,7 @@ public class UsersResource {
             value = "/user/",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Single<User> createUser(@RequestBody User body, UriComponentsBuilder ucBuilder) {
+
         if (!users.contains(body)) return Single.just(body);
         return Single.just(new User());
     }
@@ -49,7 +50,7 @@ public class UsersResource {
         if (id.equals("0")) return Observable.from(monsters);
         else return Observable.from(new Monster[]{
                 new Monster(),
-                new Monster("Bulbasaur","22","345","grass","23-23-23",10)
+                new Monster("Bulbasaur", "22", "345", "grass", "23-23-23", 10)
         });
     }
 
