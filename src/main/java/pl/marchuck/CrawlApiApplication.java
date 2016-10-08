@@ -3,7 +3,6 @@ package pl.marchuck;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
 import pl.marchuck.customer.CustomerProtos;
 import pl.marchuck.customer.CustomerRepository;
 import pl.marchuck.model.UserProtos;
@@ -24,12 +23,6 @@ public class CrawlApiApplication {
         // Tell Boot to look for registration-server.yml
         System.setProperty("spring.config.name", "registration-server");
         SpringApplication.run(CrawlApiApplication.class, args);
-    }
-
-
-    @Bean
-    ProtobufHttpMessageConverter protobufHttpMessageConverter() {
-        return new ProtobufHttpMessageConverter();
     }
 
     private CustomerProtos.Customer customer(int id, String f, String l, Collection<String> emails) {

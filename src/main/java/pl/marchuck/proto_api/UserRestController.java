@@ -19,8 +19,8 @@ public class UserRestController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/customers/{id}")
-    UserProtos.User customer(@PathVariable Integer id) {
+    @RequestMapping("/user/v2/{id}")
+    UserProtos.User userRestController(@PathVariable Integer id) {
         return this.userRepository.getUserById(id);
     }
 }
